@@ -72,4 +72,4 @@ async function getFeedTime(){
   hour = datetime.slice(11,13);
   
   console.log(hour)
-}
+}}
