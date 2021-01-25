@@ -1,15 +1,18 @@
 var database ,dog,dog1,dog2
 var position
+//var form
 var feed,add
 var foodobject
-var Feedtime;
-var Lastfeed;
+var Feedtime
+var Lastfeed
+//Create variables here
 
+function preload()
 
-function preload(){
+{
   dogimg1 = loadImage("images/dogImg.png")
   dogimg2 = loadImage("images/dogImg1.png")
-
+	//load images here
 }
 
 function setup() {
@@ -24,16 +27,12 @@ function setup() {
  
   var dogo = database.ref('Food');
   dogo.on("value", readPosition, showError);
-  feed = createButton("FEED Dog")
-  feed.position(700,15)
+  feed = createButton("FEED DRAGO")
+  feed.position(500,15)
   feed.mousePressed(FeedDog)
   add = createButton("ADD FOOD")
-  add.position(800,15)
+  add.position(400,15)
   add.mousePressed(AddFood)
-  
-  input = createInput("Name of the dog");
-  input.position(100,15)
-
 
 } 
 
@@ -47,8 +46,6 @@ function draw(){
  fill(255,255,254);
  textSize(15);
 
-
-
 drawSprites();
 }
 function readPosition(data){
@@ -60,16 +57,26 @@ function showError(){
   console.log("Error in writing to the database");
 }
 
+function writePosition(nazo){
+  if(nazo>0){
+    nazo=nazo-1
+  }
+  else{
+    nazo=0
+  }
+  database.ref('/').set({
+    'Food': nazo
+  })
 
+}
 function AddFood(){
 position++
 database.ref('/').update({
   Food:position
 }
+
 )
-
 }
-
 function FeedDog(){
 
 dog.addImage(dogimg2)
@@ -78,4 +85,5 @@ foodobject.updateFoodStock(foodobject.getFoodStock()-1)
    Food:foodobject.getFoodStock(),
    FeedTime:hour ()
  })
+
 }
